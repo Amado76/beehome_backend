@@ -1,0 +1,185 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AuthProvider {
+  EMAIL_PASSWORD
+  GOOGLE
+  APPLE
+}
+
+enum FamilyRole {
+  VIEW_ONLY
+  CREATE_EDIT
+  MANAGE_SETTINGS_GOALS
+  ADMIN
+}
+
+enum PlanningMode {
+  ACADEMIC_YEAR
+  CYCLES
+  BOTH
+}
+
+enum DurationDisplayUnit {
+  MINUTES
+  HOURS
+}
+
+enum LicenseStatus {
+  TRIAL
+  ACTIVE
+  EXPIRED
+  OVERRIDE
+}
+
+enum LicenseAuditActorType {
+  USER
+  ADMIN
+  SYSTEM
+}
+
+model User {
+  id           String        @id @default(uuid()) @db.Uuid
+  email        String?       @unique
+  passwordHash String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  identities   AuthIdentity[]
+  memberships  Membership[]
+}
+
+model AuthIdentity {
+  id              String       @id @default(uuid()) @db.Uuid
+  userId          String       @db.Uuid
+  provider        AuthProvider
+  providerSubject String
+  createdAt       DateTime     @default(now())
+
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerSubject])
+  @@index([userId])
+}
+
+model Family {
+  id        String      @id @default(uuid()) @db.Uuid
+  name      String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  memberships       Membership[]
+  invites           FamilyInvite[]
+  children          ChildProfile[]
+  academicYear      AcademicYearSettings?
+  cycles            Cycle[]
+  license           FamilyLicense?
+  licenseAuditTrail FamilyLicenseAudit[]
+}
+
+model Membership {
+  id        String     @id @default(uuid()) @db.Uuid
+  familyId  String     @db.Uuid
+  userId    String     @db.Uuid
+  role      FamilyRole
+  revokedAt DateTime?
+  createdAt DateTime   @default(now())
+
+  family    Family     @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([familyId, userId])
+  @@index([userId])
+  @@index([familyId])
+}
+
+model FamilyInvite {
+  id         String     @id @default(uuid()) @db.Uuid
+  familyId   String     @db.Uuid
+  email      String
+  role       FamilyRole
+  tokenHash  String
+  expiresAt  DateTime
+  acceptedAt DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime   @default(now())
+
+  family     Family     @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
+  @@index([email])
+}
+
+model ChildProfile {
+  id         String   @id @default(uuid()) @db.Uuid
+  familyId   String   @db.Uuid
+  name       String
+  birthDate  DateTime? @db.Date
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  family     Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
+}
+
+model AcademicYearSettings {
+  familyId            String              @id @db.Uuid
+  anchorDate          DateTime            @db.Date
+  planningMode        PlanningMode
+  durationDisplayUnit DurationDisplayUnit
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  family              Family              @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model Cycle {
+  id           String   @id @default(uuid()) @db.Uuid
+  familyId     String   @db.Uuid
+  name         String
+  durationDays Int
+  order        Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  family       Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@unique([familyId, order])
+  @@index([familyId])
+}
+
+model FamilyLicense {
+  familyId        String        @id @db.Uuid
+  status          LicenseStatus
+  trialStartedAt  DateTime?
+  trialEndsAt     DateTime?
+  paidUntil       DateTime?
+  overrideActive  Boolean       @default(false)
+  overrideReason  String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  family          Family        @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model FamilyLicenseAudit {
+  id          String               @id @default(uuid()) @db.Uuid
+  familyId    String               @db.Uuid
+  actorType   LicenseAuditActorType
+  actorId     String?
+  fromStatus  LicenseStatus?
+  toStatus    LicenseStatus
+  reason      String?
+  createdAt   DateTime             @default(now())
+
+  family      Family               @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
+}

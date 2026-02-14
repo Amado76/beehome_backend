@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# VCS / editor
+.git/
+.github/
+.vscode/
+.idea/
+
+# Local env / secrets
+.env
+.env.*
+!.env.example
+
+# Docs/artifacts
+openapi.json
+
+# Misc
+*.log
+.DS_Store
+Thumbs.db

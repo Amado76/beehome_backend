@@ -5,7 +5,7 @@
   "description": "BeeHome Planner MVP backend API (Express + TypeScript + Prisma)",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node dist/server.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
@@ -29,8 +29,28 @@
   "homepage": "https://github.com/Amado76/beehome_backend#readme",
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "8.4.0",
+    "@prisma/client": "6.19.2",
+    "bcryptjs": "2.4.3",
+    "dotenv": "16.4.5",
     "express": "5.2.1",
+    "jsonwebtoken": "9.0.2",
+    "prisma": "6.19.2",
     "swagger-ui-express": "5.0.1",
     "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "2.4.6",
+    "@types/jsonwebtoken": "9.0.6",
+    "@types/express": "5.0.3",
+    "@types/node": "24.3.0",
+    "@types/supertest": "6.0.3",
+    "@types/swagger-ui-express": "4.1.8",
+    "eslint": "9.0.0",
+    "prettier": "3.8.1",
+    "supertest": "7.2.2",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.43.0",
+    "vitest": "4.0.18"
   }
 }

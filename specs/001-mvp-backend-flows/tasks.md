@@ -8,35 +8,35 @@ Include unit tests for services and API integration tests for endpoints.
 
 ## Phase 1: Setup (Shared Infrastructure)
 
-- [ ] T001 Create backend folder structure in src/, tests/, prisma/
-- [ ] T002 Initialize Node/TypeScript project in package.json (scripts: dev/build/test/openapi) at package.json
-- [ ] T003 Add TypeScript strict config in tsconfig.json
-- [ ] T004 [P] Add ESLint + Prettier config for TypeScript in eslint.config.js and .prettierrc
-- [ ] T005 [P] Add Vitest configuration in vitest.config.ts and tests/setup.ts
-- [ ] T006 [P] Add environment template in .env.example and document required vars in README.md
-- [ ] T007 Add env validation with Zod in src/config/env.ts
-- [ ] T008 Add Prisma baseline in prisma/schema.prisma and prisma/migrations/ (empty initial migration)
-- [ ] T009 [P] Add DB/dev runtime (docker-compose.yml for Postgres) in docker-compose.yml
-- [ ] T010 Add OpenAPI scaffolding (types + folder + script entrypoint stub only) in src/core/openapi/generateOpenApi.ts
-- [ ] T011 [P] Pin dependency versions and record them in specs/001-mvp-backend-flows/research.md
+- [X] T001 Create backend folder structure in src/, tests/, prisma/
+- [X] T002 Initialize Node/TypeScript project in package.json (scripts: dev/build/test/openapi) at package.json
+- [X] T003 Add TypeScript strict config in tsconfig.json
+- [X] T004 [P] Add ESLint + Prettier config for TypeScript in eslint.config.js and .prettierrc
+- [X] T005 [P] Add Vitest configuration in vitest.config.ts and tests/setup.ts
+- [X] T006 [P] Add environment template in .env.example and document required vars in README.md
+- [X] T007 Add env validation with Zod in src/config/env.ts
+- [X] T008 Add Prisma baseline in prisma/schema.prisma and prisma/migrations/ (empty initial migration)
+- [X] T009 [P] Add DB/dev runtime (docker-compose.yml for Postgres) in docker-compose.yml
+- [X] T010 Add OpenAPI scaffolding (types + folder + script entrypoint stub only) in src/core/openapi/generateOpenApi.ts
+- [X] T011 [P] Pin dependency versions and record them in specs/001-mvp-backend-flows/research.md
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T012 Create Express app bootstrap in src/app.ts and src/server.ts
-- [ ] T013 Add centralized error model in src/core/errors/AppError.ts
-- [ ] T014 Add error middleware in src/core/errors/errorMiddleware.ts
-- [ ] T015 [P] Add async handler helper in src/core/http/asyncHandler.ts
-- [ ] T016 [P] Add request validation middleware in src/core/validation/validate.ts
-- [ ] T017 Add Prisma client singleton in src/core/db/prisma.ts
-- [ ] T018 Define base auth types and middleware contracts in src/core/auth/authTypes.ts
-- [ ] T019 Add bearer auth middleware (JWT) in src/core/auth/requireAuth.ts
-- [ ] T020 Decide and implement current-family selection (e.g., X-Family-Id header) in src/core/auth/requireFamily.ts
-- [ ] T021 Add role/permission guard middleware in src/core/auth/requireRole.ts
-- [ ] T022 Implement paywall/license enforcement middleware in src/modules/license/license.middleware.ts
-- [ ] T023 Wire Swagger UI docs endpoint in src/modules/docs/docs.routes.ts and mount at /docs in src/app.ts
-- [ ] T024 Implement OpenAPI generation from Zod schemas in src/core/openapi/openapi.ts
-- [ ] T025 [P] Add integration test harness (createTestApp, db helpers) in tests/integration/_helpers/app.ts and tests/integration/_helpers/db.ts
-- [ ] T026 Add CI workflow to run typecheck + unit + integration + openapi generation in .github/workflows/ci.yml
+- [X] T012 Create Express app bootstrap in src/app.ts and src/server.ts
+- [X] T013 Add centralized error model in src/core/errors/AppError.ts
+- [X] T014 Add error middleware in src/core/errors/errorMiddleware.ts
+- [X] T015 [P] Add async handler helper in src/core/http/asyncHandler.ts
+- [X] T016 [P] Add request validation middleware in src/core/validation/validate.ts
+- [X] T017 Add Prisma client singleton in src/core/db/prisma.ts
+- [X] T018 Define base auth types and middleware contracts in src/core/auth/authTypes.ts
+- [X] T019 Add bearer auth middleware (JWT) in src/core/auth/requireAuth.ts
+- [X] T020 Decide and implement current-family selection (e.g., X-Family-Id header) in src/core/auth/requireFamily.ts
+- [X] T021 Add role/permission guard middleware in src/core/auth/requireRole.ts
+- [X] T022 Implement paywall/license enforcement middleware in src/modules/license/license.middleware.ts
+- [X] T023 Wire Swagger UI docs endpoint in src/modules/docs/docs.routes.ts and mount at /docs in src/app.ts
+- [X] T024 Implement OpenAPI generation from Zod schemas in src/core/openapi/openapi.ts
+- [X] T025 [P] Add integration test harness (createTestApp, db helpers) in tests/integration/_helpers/app.ts and tests/integration/_helpers/db.ts
+- [X] T026 Add CI workflow to run typecheck + unit + integration + openapi generation in .github/workflows/ci.yml
 
 **Checkpoint**: Foundation ready; user stories can begin.
 
@@ -46,13 +46,13 @@ Include unit tests for services and API integration tests for endpoints.
 
 **Independent Test**: Sign up → create family (trial starts) → create child → invite 2nd adult → accept invite; verify roles and access boundaries.
 
-- [ ] T027 [P] [US1] Define auth schemas (signup/login) in src/modules/auth/auth.schemas.ts
-- [ ] T028 [P] [US1] Implement auth repo (users/identities) in src/modules/auth/auth.repo.ts
-- [ ] T029 [US1] Implement auth service (signup/login, password hashing) in src/modules/auth/auth.service.ts
-- [ ] T030 [US1] Implement auth controller in src/modules/auth/auth.controller.ts
-- [ ] T031 [US1] Implement auth routes in src/modules/auth/auth.routes.ts
-- [ ] T032 [P] [US1] API tests for /auth/signup and /auth/login in tests/integration/auth.test.ts
-- [ ] T033 [P] [US1] Unit tests for auth service in tests/unit/auth.service.test.ts
+- [X] T027 [P] [US1] Define auth schemas (signup/login) in src/modules/auth/auth.schemas.ts
+- [X] T028 [P] [US1] Implement auth repo (users/identities) in src/modules/auth/auth.repo.ts
+- [X] T029 [US1] Implement auth service (signup/login, password hashing) in src/modules/auth/auth.service.ts
+- [X] T030 [US1] Implement auth controller in src/modules/auth/auth.controller.ts
+- [X] T031 [US1] Implement auth routes in src/modules/auth/auth.routes.ts
+- [X] T032 [P] [US1] API tests for /auth/signup and /auth/login in tests/integration/auth.test.ts
+- [X] T033 [P] [US1] Unit tests for auth service in tests/unit/auth.service.test.ts
 
 - [ ] T034 [P] [US1] Define family schemas in src/modules/families/families.schemas.ts
 - [ ] T035 [P] [US1] Implement family repo in src/modules/families/families.repo.ts
@@ -88,7 +88,7 @@ Include unit tests for services and API integration tests for endpoints.
 - [ ] T167 [P] [US1] API tests for cycles CRUD + derived periods in tests/integration/cycles.test.ts
 - [ ] T168 [US1] Prisma update + migration if needed for cycles duration/constraints in prisma/schema.prisma and prisma/migrations/
 
-- [ ] T055 [US1] Add Prisma models for US1 entities (User, AuthIdentity, Family, Membership, Invite, ChildProfile, AcademicYearSettings, Cycle, FamilyLicense, FamilyLicenseAudit) in prisma/schema.prisma
+- [X] T055 [US1] Add Prisma models for US1 entities (User, AuthIdentity, Family, Membership, Invite, ChildProfile, AcademicYearSettings, Cycle, FamilyLicense, FamilyLicenseAudit) in prisma/schema.prisma
 - [ ] T056 [US1] Create and apply Prisma migration for US1 schema in prisma/migrations/
 
 ## Phase 4: User Story 2 — Plan: Subjects, Lessons, and Materials (Priority: P2)

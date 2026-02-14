@@ -82,15 +82,17 @@ These are the exact versions we plan to pin in `package.json` for the initial im
 - Node.js: `v24.13.0`
 - npm: `11.9.0`
 - express: `5.2.1` *(note: if Express 5 introduces migration friction, fall back to dist-tag `latest-4` = `4.22.1` and record rationale)*
-- prisma / @prisma/client: `7.3.0`
+- prisma / @prisma/client: `6.19.2` *(Prisma 7.x CLI in this environment rejected `datasource.url` in `schema.prisma`; v6.x is used to keep the standard schema-based config)*
 - zod: `4.3.6`
 - @asteasolutions/zod-to-openapi: `8.4.0`
 - swagger-ui-express: `5.0.1`
+- jsonwebtoken: `9.0.2`
+- bcryptjs: `2.4.3`
 - vitest: `4.0.18`
 - supertest: `7.2.2`
 - typescript: `5.9.3`
 - tsx: `4.21.0`
-- eslint: `10.0.0`
+- eslint: `9.0.0` *(downgraded from v10 due to `typescript-eslint` peer dependency constraints; keep pinned to avoid toolchain drift)*
 - prettier: `3.8.1`
 
 ### Notes for fast-moving dependencies
