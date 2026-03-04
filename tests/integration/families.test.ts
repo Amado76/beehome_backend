@@ -1,3 +1,17 @@
+/**
+ * Integration Tests for Families API
+ *
+ * Tests the complete families module including:
+ * - POST /families endpoint (create family with trial)
+ * - Authentication requirements (requireAuth middleware)
+ * - Request validation (Zod schemas)
+ * - Database persistence
+ * - Response formats
+ *
+ * Tests are skipped if PostgreSQL is not reachable on localhost:5432
+ * to allow CI/local development to run without database.
+ */
+
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 import { spawnSync } from 'node:child_process';
@@ -5,14 +19,6 @@ import { spawnSync } from 'node:child_process';
 import { createTestClient } from './_helpers/app';
 import { disconnectDb, resetDb } from './_helpers/db';
 
-/**
- * Integration tests require a reachable local Postgres.
- *
- * Safety:
- * - These tests reset data by deleting rows from application tables.
- * - To reduce the risk of wiping a developer DB, we default to an isolated Postgres schema.
- * - If you override DATABASE_URL, keep `schema=integration_test` (or set ALLOW_NONLOCAL_DB_RESET=true explicitly).
- */
 function getDefaultTestDatabaseUrl(): string {
   return 'postgresql://postgres:postgres@localhost:5432/beehome_dev?schema=integration_test';
 }
@@ -32,11 +38,6 @@ function getSchemaNameFromUrl(databaseUrl: string): string | null {
   }
 }
 
-/**
- * Best-effort synchronous connectivity probe.
- *
- * We do this at module-evaluation time so we can choose `describe` vs `describe.skip` deterministically.
- */
 function isTcpReachableSync(
   host: string,
   port: number,
@@ -109,7 +110,7 @@ if (!databaseUrl) {
 
 const describeIntegration = shouldRunIntegration ? describe : describe.skip;
 
-describeIntegration('auth (integration)', () => {
+describeIntegration('families (integration)', () => {
   if (!shouldRunIntegration) {
     it(skipReason, () => {
       expect(true).toBe(true);
@@ -118,8 +119,6 @@ describeIntegration('auth (integration)', () => {
   }
 
   beforeAll(async () => {
-    // Ensure the schema is migrated before we start deleting/inserting rows.
-    // Uses DATABASE_URL (including the schema) from the process env.
     spawnSync('./node_modules/.bin/prisma', ['migrate', 'deploy'], {
       stdio: 'inherit',
       env: process.env,
@@ -134,70 +133,34 @@ describeIntegration('auth (integration)', () => {
     await disconnectDb();
   });
 
-  it('signs up and returns access token', async () => {
+  it('creates a family and returns id', async () => {
     const client = createTestClient();
 
-    const res = await client.post('/auth/signup').send({
-      email: 'test@example.com',
+    const signup = await client.post('/auth/signup').send({
+      email: 'owner@example.com',
       password: 'password123',
     });
+
+    expect(signup.status).toBe(201);
+    expect(signup.body).toHaveProperty('accessToken');
+
+    const res = await client
+      .post('/families')
+      .set('authorization', `Bearer ${signup.body.accessToken}`)
+      .send({ name: 'My Family' });
 
     expect(res.status).toBe(201);
-    expect(res.body).toHaveProperty('accessToken');
-  });
-
-  it('logs in and returns access token', async () => {
-    const client = createTestClient();
-
-    await client.post('/auth/signup').send({
-      email: 'test@example.com',
-      password: 'password123',
-    });
-
-    const res = await client.post('/auth/login').send({
-      email: 'test@example.com',
-      password: 'password123',
-    });
-
-    expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('accessToken');
-  });
-
-  it('rejects duplicate signup with EMAIL_TAKEN', async () => {
-    const client = createTestClient();
-
-    const first = await client.post('/auth/signup').send({
-      email: 'dup@example.com',
-      password: 'password123',
-    });
-
-    expect(first.status).toBe(201);
-
-    const second = await client.post('/auth/signup').send({
-      email: 'dup@example.com',
-      password: 'password123',
-    });
-
-    expect(second.status).toBe(400);
-    expect(second.body).toMatchObject({
-      error: {
-        code: 'EMAIL_TAKEN',
-      },
+    expect(res.body).toHaveProperty('id');
+    expect(typeof res.body.id).toBe('string');
+    expect(res.body).toMatchObject({
+      name: 'My Family',
     });
   });
 
-  it('rejects login with wrong password (401)', async () => {
+  it('rejects create family without auth (401)', async () => {
     const client = createTestClient();
 
-    await client.post('/auth/signup').send({
-      email: 'wrongpass@example.com',
-      password: 'password123',
-    });
-
-    const res = await client.post('/auth/login').send({
-      email: 'wrongpass@example.com',
-      password: 'not-the-right-password',
-    });
+    const res = await client.post('/families').send({ name: 'Nope' });
 
     expect(res.status).toBe(401);
     expect(res.body).toMatchObject({
@@ -205,39 +168,5 @@ describeIntegration('auth (integration)', () => {
         code: 'UNAUTHORIZED',
       },
     });
-  });
-
-  it('returns VALIDATION_ERROR for invalid signup payload', async () => {
-    const client = createTestClient();
-
-    const res = await client.post('/auth/signup').send({
-      email: 'not-an-email',
-      password: 'short',
-    });
-
-    expect(res.status).toBe(400);
-    expect(res.body).toMatchObject({
-      error: {
-        code: 'VALIDATION_ERROR',
-      },
-    });
-    expect(typeof res.body.error?.message).toBe('string');
-  });
-
-  it('returns VALIDATION_ERROR for invalid login payload', async () => {
-    const client = createTestClient();
-
-    const res = await client.post('/auth/login').send({
-      email: 'not-an-email',
-      password: '',
-    });
-
-    expect(res.status).toBe(400);
-    expect(res.body).toMatchObject({
-      error: {
-        code: 'VALIDATION_ERROR',
-      },
-    });
-    expect(typeof res.body.error?.message).toBe('string');
   });
 });

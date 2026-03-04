@@ -8,35 +8,35 @@ Include unit tests for services and API integration tests for endpoints.
 
 ## Phase 1: Setup (Shared Infrastructure)
 
-- [X] T001 Create backend folder structure in src/, tests/, prisma/
-- [X] T002 Initialize Node/TypeScript project in package.json (scripts: dev/build/test/openapi) at package.json
-- [X] T003 Add TypeScript strict config in tsconfig.json
-- [X] T004 [P] Add ESLint + Prettier config for TypeScript in eslint.config.js and .prettierrc
-- [X] T005 [P] Add Vitest configuration in vitest.config.ts and tests/setup.ts
-- [X] T006 [P] Add environment template in .env.example and document required vars in README.md
-- [X] T007 Add env validation with Zod in src/config/env.ts
-- [X] T008 Add Prisma baseline in prisma/schema.prisma and prisma/migrations/ (empty initial migration)
-- [X] T009 [P] Add DB/dev runtime (docker-compose.yml for Postgres) in docker-compose.yml
-- [X] T010 Add OpenAPI scaffolding (types + folder + script entrypoint stub only) in src/core/openapi/generateOpenApi.ts
-- [X] T011 [P] Pin dependency versions and record them in specs/001-mvp-backend-flows/research.md
+- [x] T001 Create backend folder structure in src/, tests/, prisma/
+- [x] T002 Initialize Node/TypeScript project in package.json (scripts: dev/build/test/openapi) at package.json
+- [x] T003 Add TypeScript strict config in tsconfig.json
+- [x] T004 [P] Add ESLint + Prettier config for TypeScript in eslint.config.js and .prettierrc
+- [x] T005 [P] Add Vitest configuration in vitest.config.ts and tests/setup.ts
+- [x] T006 [P] Add environment template in .env.example and document required vars in README.md
+- [x] T007 Add env validation with Zod in src/config/env.ts
+- [x] T008 Add Prisma baseline in prisma/schema.prisma and prisma/migrations/ (empty initial migration)
+- [x] T009 [P] Add DB/dev runtime (docker-compose.yml for Postgres) in docker-compose.yml
+- [x] T010 Add OpenAPI scaffolding (types + folder + script entrypoint stub only) in src/core/openapi/generateOpenApi.ts
+- [x] T011 [P] Pin dependency versions and record them in specs/001-mvp-backend-flows/research.md
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [X] T012 Create Express app bootstrap in src/app.ts and src/server.ts
-- [X] T013 Add centralized error model in src/core/errors/AppError.ts
-- [X] T014 Add error middleware in src/core/errors/errorMiddleware.ts
-- [X] T015 [P] Add async handler helper in src/core/http/asyncHandler.ts
-- [X] T016 [P] Add request validation middleware in src/core/validation/validate.ts
-- [X] T017 Add Prisma client singleton in src/core/db/prisma.ts
-- [X] T018 Define base auth types and middleware contracts in src/core/auth/authTypes.ts
-- [X] T019 Add bearer auth middleware (JWT) in src/core/auth/requireAuth.ts
-- [X] T020 Decide and implement current-family selection (e.g., X-Family-Id header) in src/core/auth/requireFamily.ts
-- [X] T021 Add role/permission guard middleware in src/core/auth/requireRole.ts
-- [X] T022 Implement paywall/license enforcement middleware in src/modules/license/license.middleware.ts
-- [X] T023 Wire Swagger UI docs endpoint in src/modules/docs/docs.routes.ts and mount at /docs in src/app.ts
-- [X] T024 Implement OpenAPI generation from Zod schemas in src/core/openapi/openapi.ts
-- [X] T025 [P] Add integration test harness (createTestApp, db helpers) in tests/integration/_helpers/app.ts and tests/integration/_helpers/db.ts
-- [X] T026 Add CI workflow to run typecheck + unit + integration + openapi generation in .github/workflows/ci.yml
+- [x] T012 Create Express app bootstrap in src/app.ts and src/server.ts
+- [x] T013 Add centralized error model in src/core/errors/AppError.ts
+- [x] T014 Add error middleware in src/core/errors/errorMiddleware.ts
+- [x] T015 [P] Add async handler helper in src/core/http/asyncHandler.ts
+- [x] T016 [P] Add request validation middleware in src/core/validation/validate.ts
+- [x] T017 Add Prisma client singleton in src/core/db/prisma.ts
+- [x] T018 Define base auth types and middleware contracts in src/core/auth/authTypes.ts
+- [x] T019 Add bearer auth middleware (JWT) in src/core/auth/requireAuth.ts
+- [x] T020 Decide and implement current-family selection (e.g., X-Family-Id header) in src/core/auth/requireFamily.ts
+- [x] T021 Add role/permission guard middleware in src/core/auth/requireRole.ts
+- [x] T022 Implement paywall/license enforcement middleware in src/modules/license/license.middleware.ts
+- [x] T023 Wire Swagger UI docs endpoint in src/modules/docs/docs.routes.ts and mount at /docs in src/app.ts
+- [x] T024 Implement OpenAPI generation from Zod schemas in src/core/openapi/openapi.ts
+- [x] T025 [P] Add integration test harness (createTestApp, db helpers) in tests/integration/\_helpers/app.ts and tests/integration/\_helpers/db.ts
+- [x] T026 Add CI workflow to run typecheck + unit + integration + openapi generation in .github/workflows/ci.yml
 
 **Checkpoint**: Foundation ready; user stories can begin.
 
@@ -46,20 +46,20 @@ Include unit tests for services and API integration tests for endpoints.
 
 **Independent Test**: Sign up → create family (trial starts) → create child → invite 2nd adult → accept invite; verify roles and access boundaries.
 
-- [X] T027 [P] [US1] Define auth schemas (signup/login) in src/modules/auth/auth.schemas.ts
-- [X] T028 [P] [US1] Implement auth repo (users/identities) in src/modules/auth/auth.repo.ts
-- [X] T029 [US1] Implement auth service (signup/login, password hashing) in src/modules/auth/auth.service.ts
-- [X] T030 [US1] Implement auth controller in src/modules/auth/auth.controller.ts
-- [X] T031 [US1] Implement auth routes in src/modules/auth/auth.routes.ts
-- [X] T032 [P] [US1] API tests for /auth/signup and /auth/login in tests/integration/auth.test.ts
-- [X] T033 [P] [US1] Unit tests for auth service in tests/unit/auth.service.test.ts
+- [x] T027 [P] [US1] Define auth schemas (signup/login) in src/modules/auth/auth.schemas.ts
+- [x] T028 [P] [US1] Implement auth repo (users/identities) in src/modules/auth/auth.repo.ts
+- [x] T029 [US1] Implement auth service (signup/login, password hashing) in src/modules/auth/auth.service.ts
+- [x] T030 [US1] Implement auth controller in src/modules/auth/auth.controller.ts
+- [x] T031 [US1] Implement auth routes in src/modules/auth/auth.routes.ts
+- [x] T032 [P] [US1] API tests for /auth/signup and /auth/login in tests/integration/auth.test.ts
+- [x] T033 [P] [US1] Unit tests for auth service in tests/unit/auth.service.test.ts
 
-- [ ] T034 [P] [US1] Define family schemas in src/modules/families/families.schemas.ts
-- [ ] T035 [P] [US1] Implement family repo in src/modules/families/families.repo.ts
-- [ ] T036 [US1] Implement family service (create family + start trial, max 2 adults) in src/modules/families/families.service.ts
-- [ ] T037 [US1] Implement family controller/routes in src/modules/families/families.controller.ts and src/modules/families/families.routes.ts
-- [ ] T038 [P] [US1] API tests for POST /families in tests/integration/families.test.ts
-- [ ] T039 [P] [US1] Unit tests for families service (2-adult rule, trial start) in tests/unit/families.service.test.ts
+- [x] T034 [P] [US1] Define family schemas in src/modules/families/families.schemas.ts
+- [x] T035 [P] [US1] Implement family repo in src/modules/families/families.repo.ts
+- [x] T036 [US1] Implement family service (create family + start trial, max 2 adults) in src/modules/families/families.service.ts
+- [x] T037 [US1] Implement family controller/routes in src/modules/families/families.controller.ts and src/modules/families/families.routes.ts
+- [x] T038 [P] [US1] API tests for POST /families in tests/integration/families.test.ts
+- [x] T039 [P] [US1] Unit tests for families service (2-adult rule, trial start) in tests/unit/families.service.test.ts
 
 - [ ] T040 [P] [US1] Define invites schemas in src/modules/families/invites.schemas.ts
 - [ ] T041 [P] [US1] Implement invites repo in src/modules/families/invites.repo.ts
@@ -67,7 +67,7 @@ Include unit tests for services and API integration tests for endpoints.
 - [ ] T043 [US1] Implement invites controller/routes in src/modules/families/invites.controller.ts and src/modules/families/invites.routes.ts
 - [ ] T044 [P] [US1] API tests for invites flow in tests/integration/invites.test.ts
 
-- [ ] T169 [US1] Add membership revoke/deactivate endpoint in src/modules/families/memberships.*
+- [ ] T169 [US1] Add membership revoke/deactivate endpoint in src/modules/families/memberships.\*
 - [ ] T170 [P] [US1] API tests for revoke after acceptance in tests/integration/memberships.test.ts
 
 - [ ] T045 [P] [US1] Define children schemas in src/modules/children/children.schemas.ts
@@ -83,12 +83,12 @@ Include unit tests for services and API integration tests for endpoints.
 - [ ] T054 [P] [US1] API tests for planning settings in tests/integration/settings.test.ts
 
 - [ ] T164 [US1] Define cycles schemas in src/modules/families/cycles.schemas.ts
-- [ ] T165 [US1] Implement cycles repo/service/controller/routes in src/modules/families/cycles.*
-- [ ] T166 [US1] Implement derived cycle periods endpoint (range query) in src/modules/families/cyclePeriods.*
+- [ ] T165 [US1] Implement cycles repo/service/controller/routes in src/modules/families/cycles.\*
+- [ ] T166 [US1] Implement derived cycle periods endpoint (range query) in src/modules/families/cyclePeriods.\*
 - [ ] T167 [P] [US1] API tests for cycles CRUD + derived periods in tests/integration/cycles.test.ts
 - [ ] T168 [US1] Prisma update + migration if needed for cycles duration/constraints in prisma/schema.prisma and prisma/migrations/
 
-- [X] T055 [US1] Add Prisma models for US1 entities (User, AuthIdentity, Family, Membership, Invite, ChildProfile, AcademicYearSettings, Cycle, FamilyLicense, FamilyLicenseAudit) in prisma/schema.prisma
+- [x] T055 [US1] Add Prisma models for US1 entities (User, AuthIdentity, Family, Membership, Invite, ChildProfile, AcademicYearSettings, Cycle, FamilyLicense, FamilyLicenseAudit) in prisma/schema.prisma
 - [ ] T056 [US1] Create and apply Prisma migration for US1 schema in prisma/migrations/
 
 ## Phase 4: User Story 2 — Plan: Subjects, Lessons, and Materials (Priority: P2)
@@ -110,7 +110,7 @@ Include unit tests for services and API integration tests for endpoints.
 - [ ] T066 [US2] Implement lessons controller/routes in src/modules/lessons/lessons.controller.ts and src/modules/lessons/lessons.routes.ts
 - [ ] T067 [P] [US2] API tests for /lessons in tests/integration/lessons.test.ts
 
-- [ ] T068 [P] [US2] Implement materials (lesson-level) repo/service/routes in src/modules/lessons/materials.*.ts
+- [ ] T068 [P] [US2] Implement materials (lesson-level) repo/service/routes in src/modules/lessons/materials.\*.ts
 - [ ] T069 [P] [US2] API tests for lesson materials in tests/integration/lesson-materials.test.ts
 
 - [ ] T070 [US2] Add Prisma models for Subject, Lesson, ClassUnit, LessonMaterial in prisma/schema.prisma
@@ -131,7 +131,7 @@ Include unit tests for services and API integration tests for endpoints.
 
 - [ ] T197 [P] [US3] Integration test: planning works with zero children (create subject + lesson + schedule with no assigned children) in tests/integration/no-children-planning.test.ts
 
-- [ ] T192 [US3] Add schedule materials CRUD endpoints (attach/list/update/remove) in src/modules/schedules/materials.* (schemas/service/controller/routes)
+- [ ] T192 [US3] Add schedule materials CRUD endpoints (attach/list/update/remove) in src/modules/schedules/materials.\* (schemas/service/controller/routes)
 - [ ] T193 [P] [US3] Integration tests for schedule materials in tests/integration/schedule-materials.test.ts
 
 - [ ] T078 [P] [US3] Define exception schemas in src/modules/schedules/exceptions.schemas.ts
@@ -173,7 +173,7 @@ Include unit tests for services and API integration tests for endpoints.
 - [ ] T096 [US5] Implement projects controller/routes in src/modules/projects/projects.controller.ts and src/modules/projects/projects.routes.ts
 - [ ] T097 [P] [US5] API tests for projects in tests/integration/projects.test.ts
 
-- [ ] T194 [US5] Implement project entries (log activity entries + list timeline + totals) in src/modules/projects/entries.* (schemas/service/controller/routes)
+- [ ] T194 [US5] Implement project entries (log activity entries + list timeline + totals) in src/modules/projects/entries.\* (schemas/service/controller/routes)
 - [ ] T195 [P] [US5] API tests for project entries + timeline + total time spent in tests/integration/project-entries.test.ts
 
 - [ ] T098 [US5] Add Prisma models for ScienceProject and ScienceProjectEntry in prisma/schema.prisma
@@ -234,7 +234,7 @@ Include unit tests for services and API integration tests for endpoints.
 
 - [ ] T125 Define admin license override schemas in src/modules/admin/admin.schemas.ts
 - [ ] T126 Implement admin auth middleware (X-Admin-Key) in src/modules/admin/adminAuth.middleware.ts
-- [ ] T127 Implement admin license repo/service/controller/routes in src/modules/admin/licenseOverride.*.ts
+- [ ] T127 Implement admin license repo/service/controller/routes in src/modules/admin/licenseOverride.\*.ts
 - [ ] T128 [P] API tests for admin override (auth + audit) in tests/integration/admin-license.test.ts
 
 ## Phase 12: Polish & Cross-Cutting Concerns
@@ -250,8 +250,8 @@ Include unit tests for services and API integration tests for endpoints.
 
 ### Auth: Google/Apple + Account Linking (FR-003/FR-004/FR-005)
 
-- [ ] T135 [US1] Add OAuth/OIDC callback endpoints for Google in src/modules/auth/oauth.google.* (routes/controller/service)
-- [ ] T136 [US1] Add OAuth/OIDC callback endpoints for Apple in src/modules/auth/oauth.apple.* (routes/controller/service)
+- [ ] T135 [US1] Add OAuth/OIDC callback endpoints for Google in src/modules/auth/oauth.google.\* (routes/controller/service)
+- [ ] T136 [US1] Add OAuth/OIDC callback endpoints for Apple in src/modules/auth/oauth.apple.\* (routes/controller/service)
 - [ ] T137 [US1] Persist external identities (provider, providerUserId, email) in src/modules/auth/auth.repo.ts + Prisma
 - [ ] T138 [US1] Implement account linking rules (single identity across methods, conflict handling) in src/modules/auth/auth.service.ts
 - [ ] T139 [P] [US1] Integration tests for Google/Apple login + linking in tests/integration/auth-oauth.test.ts
@@ -260,13 +260,13 @@ Include unit tests for services and API integration tests for endpoints.
 ### Goals / Time Goals (FR-019/FR-019a/FR-019b)
 
 - [ ] T141 [US2] Define goals schemas in src/modules/goals/goals.schemas.ts
-- [ ] T142 [US2] Implement goals repo/service/controller/routes in src/modules/goals/*
+- [ ] T142 [US2] Implement goals repo/service/controller/routes in src/modules/goals/\*
 - [ ] T143 [P] [US2] API tests for goals CRUD in tests/integration/goals.test.ts
 - [ ] T144 [US2] Prisma models + migration for subject goals and optional child overrides in prisma/schema.prisma and prisma/migrations/
 
 ### Media / Files (FR-017/FR-028)
 
-- [ ] T145 [US2] Add media module (provider-agnostic upload intent + secure access) in src/modules/media/*
+- [ ] T145 [US2] Add media module (provider-agnostic upload intent + secure access) in src/modules/media/\*
 - [ ] T146 [US2] Add endpoints for attaching media to lessons in src/modules/media/media.routes.ts
 - [ ] T147 [US4] Add endpoints for attaching media to executions in src/modules/media/media.routes.ts
 - [ ] T148 [P] Integration tests for media intent + family authorization in tests/integration/media.test.ts
@@ -275,30 +275,30 @@ Include unit tests for services and API integration tests for endpoints.
 ### Notes & Highlights (FR-030/FR-049 prerequisites)
 
 - [ ] T150 [US4] Add schemas for private notes and public highlights in src/modules/executions/notes.schemas.ts
-- [ ] T151 [US4] Implement notes/highlights repo/service/controller/routes in src/modules/executions/notes.* (authz + separation)
+- [ ] T151 [US4] Implement notes/highlights repo/service/controller/routes in src/modules/executions/notes.\* (authz + separation)
 - [ ] T152 [P] API tests to ensure private notes never leak; highlights shareable only in tests/integration/execution-notes.test.ts
 - [ ] T153 [US4] Prisma models + migration for PrivateNote and PublicHighlight in prisma/schema.prisma and prisma/migrations/
 
 ### Reminders Cadence (FR-022)
 
-- [ ] T154 [US2] Add reminders model + “compute reminders for date range” endpoint/job stub in src/modules/reminders/*
+- [ ] T154 [US2] Add reminders model + “compute reminders for date range” endpoint/job stub in src/modules/reminders/\*
 - [ ] T155 [P] API tests for reminder computation in tests/integration/reminders.test.ts
 
 ### Daily Message Feed (FR-048)
 
-- [ ] T156 [US7] Add daily message feed endpoint + minimal model in src/modules/dailyMessage/*
+- [ ] T156 [US7] Add daily message feed endpoint + minimal model in src/modules/dailyMessage/\*
 - [ ] T157 [P] API tests for daily message feed access in tests/integration/daily-message.test.ts
 
 ### Notification Preferences + Delivery Stub (FR-039)
 
-- [ ] T158 [US6] Add NotificationPreference CRUD endpoints in src/modules/notifications/*
+- [ ] T158 [US6] Add NotificationPreference CRUD endpoints in src/modules/notifications/\*
 - [ ] T159 [US6] Add scheduled delivery stub (worker loop placeholder) for report preferences in src/modules/notifications/worker.ts
 - [ ] T160 [P] API tests for notification preferences in tests/integration/notification-preferences.test.ts
 
 ### Export Secure Retrieval + Spreadsheet-Friendly Output (FR-042/FR-042a)
 
-- [ ] T161 [US6] Add secure export artifact download endpoint (short-lived token or signed URL abstraction) in src/modules/exports/download.*
-- [ ] T162 [US6] Add CSV/spreadsheet-friendly learning history export format option in src/modules/exports/formats/*
+- [ ] T161 [US6] Add secure export artifact download endpoint (short-lived token or signed URL abstraction) in src/modules/exports/download.\*
+- [ ] T162 [US6] Add CSV/spreadsheet-friendly learning history export format option in src/modules/exports/formats/\*
 - [ ] T163 [P] Integration tests for export download authorization + expiry in tests/integration/export-download.test.ts
 
 ### Export Bundle Layout (FR-041)
@@ -309,29 +309,29 @@ Include unit tests for services and API integration tests for endpoints.
 ### Tracking Configuration (FR-044)
 
 - [ ] T171 Add tracking configuration schemas in src/modules/families/tracking.schemas.ts
-- [ ] T172 Implement tracking configuration repo/service/routes in src/modules/families/tracking.*
+- [ ] T172 Implement tracking configuration repo/service/routes in src/modules/families/tracking.\*
 - [ ] T173 [P] API tests for tracking configuration in tests/integration/tracking-config.test.ts
 
 ### Graded Flag (FR-020)
 
-- [ ] T174 [US2] Add graded flag to lesson/class schemas + persistence + list responses in src/modules/lessons/*
+- [ ] T174 [US2] Add graded flag to lesson/class schemas + persistence + list responses in src/modules/lessons/\*
 - [ ] T175 [P] [US2] API tests for graded flag in tests/integration/lessons-graded.test.ts
 
 ### Activities Tracking Coverage (FR-032) via Schedules + Executions
 
-- [ ] T176 [US3] Ensure ACTIVITY schedules persist indoor/outdoor classification and child assignment rules in src/modules/schedules/*
+- [ ] T176 [US3] Ensure ACTIVITY schedules persist indoor/outdoor classification and child assignment rules in src/modules/schedules/\*
 - [ ] T177 [P] [US3] Integration test: create ACTIVITY schedule + mark completed execution (duration + participants) in tests/integration/activity-execution.test.ts
 
 ### Medals / Honors (FR-031)
 
 - [ ] T178 Define medals schemas in src/modules/medals/medals.schemas.ts
-- [ ] T179 Implement medals repo/service/controller/routes in src/modules/medals/*
+- [ ] T179 Implement medals repo/service/controller/routes in src/modules/medals/\*
 - [ ] T180 [P] API tests for awarding + listing medals in tests/integration/medals.test.ts
 - [ ] T181 Prisma models + migration for Medal and ChildMedal (or Achievement) in prisma/schema.prisma and prisma/migrations/
 
 ### Report Variants (FR-039a)
 
-- [ ] T182 [US6] Add report format selector and implement summary vs visual output in src/modules/reports/reports.*
+- [ ] T182 [US6] Add report format selector and implement summary vs visual output in src/modules/reports/reports.\*
 - [ ] T183 [P] [US6] API tests for both report formats in tests/integration/reports-formats.test.ts
 
 ### Swagger UI Production Guard (Constitution SHOULD)
@@ -341,8 +341,8 @@ Include unit tests for services and API integration tests for endpoints.
 
 ### Report PDF Downloads (FR-038)
 
-- [ ] T186 [US6] Add PDF rendering wrapper (HTML → PDF via headless Chromium) in src/modules/reports/pdf/*
-- [ ] T187 [US6] Add dedicated learning history PDF endpoint `GET /reports/learning-history/pdf` returning application/pdf (with Content-Disposition filename) in src/modules/reports/pdfDownload.*
+- [ ] T186 [US6] Add PDF rendering wrapper (HTML → PDF via headless Chromium) in src/modules/reports/pdf/\*
+- [ ] T187 [US6] Add dedicated learning history PDF endpoint `GET /reports/learning-history/pdf` returning application/pdf (with Content-Disposition filename) in src/modules/reports/pdfDownload.\*
 - [ ] T188 [P] [US6] Integration tests for `GET /reports/learning-history/pdf` (assert `%PDF`, Content-Type, Content-Disposition, authz, paywall behavior) in tests/integration/reports-pdf.test.ts
 - [ ] T189 Add server runtime notes for headless Chromium (OS libs / container strategy) in specs/001-mvp-backend-flows/quickstart.md
 
